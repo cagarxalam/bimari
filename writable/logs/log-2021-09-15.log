@@ -1,0 +1,10 @@
+CRITICAL - 2021-09-15 11:57:55 --> Undefined variable $query
+#0 /root/Desktop/bimari/app/Models/MKategori.php(16): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', '/root/Desktop/b...', 16)
+#1 /root/Desktop/bimari/app/Models/MKategori.php(21): App\Models\MKategori->query('select * from k...')
+#2 /root/Desktop/bimari/app/Controllers/Kategori.php(31): App\Models\MKategori->ambil()
+#3 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(802): App\Controllers\Kategori->tambah()
+#4 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Kategori))
+#5 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /root/Desktop/bimari/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/root/Desktop/b...')
+#8 {main}

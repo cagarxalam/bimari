@@ -1,0 +1,12 @@
+CRITICAL - 2021-09-20 10:38:27 --> Array to string conversion
+#0 /root/Desktop/bimari/app/Views/user/page.php(73): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string...', '/root/Desktop/b...', 73)
+#1 /root/Desktop/bimari/vendor/codeigniter4/framework/system/View/View.php(214): include('/root/Desktop/b...')
+#2 /root/Desktop/bimari/vendor/codeigniter4/framework/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Common.php(1092): CodeIgniter\View\View->render('user/page', Array, true)
+#4 /root/Desktop/bimari/app/Controllers/User.php(24): view('user/page', Array)
+#5 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(802): App\Controllers\User->index()
+#6 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+#7 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /root/Desktop/bimari/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/root/Desktop/b...')
+#10 {main}

@@ -1,0 +1,13 @@
+ERROR - 2021-09-16 05:50:36 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '["kategori"]}' at line 1
+CRITICAL - 2021-09-16 05:50:36 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '["kategori"]}' at line 1
+#0 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(280): mysqli->query('select jenis fr...')
+#1 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Database/BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('select jenis fr...')
+#2 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Database/BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('select jenis fr...')
+#3 /root/Desktop/bimari/app/Models/MStok.php(16): CodeIgniter\Database\BaseConnection->query('select jenis fr...')
+#4 /root/Desktop/bimari/app/Controllers/Stok.php(26): App\Models\MStok->query('select jenis fr...')
+#5 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(802): App\Controllers\Stok->tambah()
+#6 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Stok))
+#7 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /root/Desktop/bimari/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/root/Desktop/b...')
+#10 {main}

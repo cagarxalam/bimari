@@ -1,0 +1,25 @@
+CRITICAL - 2021-09-18 02:38:14 --> Undefined variable $lokasi
+#0 /root/Desktop/bimari/app/Views/nav.php(48): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', '/root/Desktop/b...', 48)
+#1 /root/Desktop/bimari/vendor/codeigniter4/framework/system/View/View.php(214): include('/root/Desktop/b...')
+#2 /root/Desktop/bimari/vendor/codeigniter4/framework/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Common.php(1092): CodeIgniter\View\View->render('nav', Array, true)
+#4 /root/Desktop/bimari/app/Views/dashboard.php(61): view('nav')
+#5 /root/Desktop/bimari/vendor/codeigniter4/framework/system/View/View.php(214): include('/root/Desktop/b...')
+#6 /root/Desktop/bimari/vendor/codeigniter4/framework/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#7 /root/Desktop/bimari/vendor/codeigniter4/framework/system/View/View.php(230): CodeIgniter\View\View->render('dashboard', Array, true)
+#8 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Common.php(1092): CodeIgniter\View\View->render('stockout/stock', Array, true)
+#9 /root/Desktop/bimari/app/Controllers/StockOut.php(22): view('stockout/stock', Array)
+#10 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(802): App\Controllers\StockOut->index()
+#11 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StockOut))
+#12 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 /root/Desktop/bimari/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#14 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/root/Desktop/b...')
+#15 {main}
+CRITICAL - 2021-09-18 05:10:53 --> Undefined variable $rows
+#0 /root/Desktop/bimari/app/Controllers/Lokasi.php(109): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', '/root/Desktop/b...', 109)
+#1 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(802): App\Controllers\Lokasi->hapus()
+#2 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lokasi))
+#3 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /root/Desktop/bimari/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/root/Desktop/b...')
+#6 {main}
