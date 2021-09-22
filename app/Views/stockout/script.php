@@ -13,24 +13,25 @@
     $("#tambah_izin").modal("show")
   }
 
-  /*function edit(id){
-    $("#edit_barang option").removeAttr("selected")
+  function edit(id){
+    $("#edit_izin option").removeAttr("selected")
     $.ajax({
-      url: '/stok/show',
+      url: '/pengajuan-barang/show',
       type: 'post',
       dataType: 'json',
       data: {id:id},
       success(a){
-        $("#edit_barang option[value='"+a.jenis+"']").attr("selected","selected")
-        $("#edit_barang input[name='id']").val(a.id)
-        $("#edit_barang input[name='barang']").val(a.barang)
-        $("#edit_barang input[name='merk']").val(a.merk)
-        $("#edit_barang input[name='jumlah']").val(a.jumlah)
+        $("#edit_izin input[name='id']").val(a.id)
+        $("#edit_izin input[name='prevStok']").val(a.stok)
+        $("#edit_izin select[name='barang'] option[value='"+a.stok+"']").attr("selected","selected")
+        $("#edit_izin input[name='pemohon']").val(a.pemohon)
+        $("#edit_izin select[name='lokasi'] option[value='"+a.lokasi+"']").attr("selected","selected")
+        $("#edit_izin input[name='jumlah']").val(a.jumlah)
 
         //clear validation
-        $("#edit_barang form .is-invalid").removeClass("is-invalid")
-        $("#edit_barang form span.error").remove()
-        $("#edit_barang").modal("show")
+        $("#edit_izin form .is-invalid").removeClass("is-invalid")
+        $("#edit_izin form span.error").remove()
+        $("#edit_izin").modal("show")
       },
       error(e){
         console.log(e)
@@ -38,19 +39,19 @@
     })
   }
 
-  function hapus(id){
+  function hapus(id,id_stok){
     if(confirm('Apakah anda yakin?')){
       $.ajax({
-        url: 'stok/delete',
+        url: '/pengajuan-barang/hapus',
         type: 'post',
         dataType: 'json',
-        data: {id:id},
+        data: {id:id,id_stok:id_stok},
         success(a){
           if(a == null) {
-            $("#example1").DataTable().clear().draw()
+            $("#izin").DataTable().clear().draw()
           } else {
             // destroy datatable first
-            $("#example1").DataTable().destroy()
+            $("#izin").DataTable().destroy()
             // empty tbody
             $("#tbody").empty()
 
@@ -60,7 +61,7 @@
             }
 
             // re-intialize DataTable
-            $("#example1").DataTable({
+            $("#izin").DataTable({
               "responsive": true, 
               "lengthChange": false, 
               "autoWidth": false
@@ -68,11 +69,11 @@
           }
         },
         error(e){
-          console.log(e)
+          console.log(e.responseJSON.message)
         }
       })
     }
-  }*/
+  }
 
   $('#tambah_izin form').validate({
     rules: {
@@ -107,18 +108,18 @@
     submitHandler: function(data){
       var form = new FormData(data)
       $.ajax({
-        url: 'StockOut/tambah',
+        url: '/pengajuan-barang/tambah',
         type: 'post',
         dataType: 'json',
         data: form,
         processData: false,
         contentType: false,
         success(a){
-          /*if(a == null) {
-            $("#example1").DataTable().clear().draw()
+          if(a == null) {
+            $("#izin").DataTable().clear().draw()
           } else {
             // destroy datatable first
-            $("#example1").DataTable().destroy()
+            $("#izin").DataTable().destroy()
             // empty tbody
             $("#tbody").empty()
 
@@ -128,15 +129,14 @@
             }
 
             // re-intialize DataTable
-            $("#example1").DataTable({
+            $("#izin").DataTable({
               "responsive": true, 
               "lengthChange": false, 
               "autoWidth": false
             })
           }
 
-          $("#tambah_barang").modal("hide")*/
-          console.log(a)
+          $("#tambah_izin").modal("hide")
         },
         error(e){
           console.log(e)
@@ -145,29 +145,23 @@
     }
   })
 
-  /*$('#edit_barang form').validate({
+  $('#edit_izin form').validate({
     rules: {
-      barang: {
-        required: true
-      },
-      merk: {
+      pemohon: {
         required: true
       },
       jumlah: {
         required: true,
-        number:   true,
+        number: true
       }
     },
     messages: {
-      barang: {
-        required: "Silahkan masukkan nama barang"
-      },
-      merk: {
-        required: "Silahkan masukkan merk"
+      pemohon: {
+        required: 'Silahkan isi nama pemohon'
       },
       jumlah: {
-        required: 'Silahkan masukkan jumlah',
-        number:   'Masukkan dengan angka',
+        required: 'Silahkan isi jumlah',
+        number: 'Silahkan isi dengan angka'
       }
     },
     errorElement: 'span',
@@ -184,7 +178,7 @@
     submitHandler: function(data){
       var form = new FormData(data)
       $.ajax({
-        url: 'stok/update',
+        url: '/pengajuan-barang/update',
         type: 'post',
         dataType: 'json',
         data: form,
@@ -192,10 +186,10 @@
         contentType: false,
         success(a){
           if(a == null) {
-            $("#example1").DataTable().clear().draw()
+            $("#izin").DataTable().clear().draw()
           } else {
             // destroy datatable first
-            $("#example1").DataTable().destroy()
+            $("#izin").DataTable().destroy()
             // empty tbody
             $("#tbody").empty()
 
@@ -205,19 +199,19 @@
             }
 
             // re-intialize DataTable
-            $("#example1").DataTable({
+            $("#izin").DataTable({
               "responsive": true, 
               "lengthChange": false, 
               "autoWidth": false
             })
           }
 
-          $("#edit_barang").modal("hide")
+          $("#edit_izin").modal("hide")
         },
         error(e){
           console.log(e)
         }
       })
     }
-  })*/
+  })
 </script>

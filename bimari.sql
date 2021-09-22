@@ -103,7 +103,7 @@ CREATE TABLE `lokasi` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `lokasi` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,7 +112,7 @@ CREATE TABLE `lokasi` (
 
 LOCK TABLES `lokasi` WRITE;
 /*!40000 ALTER TABLE `lokasi` DISABLE KEYS */;
-INSERT INTO `lokasi` VALUES (3,'LAB TIK');
+INSERT INTO `lokasi` VALUES (3,'LAB TIK'),(4,'Perpustakaan');
 /*!40000 ALTER TABLE `lokasi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +141,7 @@ CREATE TABLE `stok` (
 
 LOCK TABLES `stok` WRITE;
 /*!40000 ALTER TABLE `stok` DISABLE KEYS */;
-INSERT INTO `stok` VALUES (6,8,'KER008HVS','HVS','Paper One',5,'2021-09-17 04:06:37'),(7,7,'SPA007PRI','Printer Canon','Canon MG2577s',3,'2021-09-17 04:07:01');
+INSERT INTO `stok` VALUES (6,8,'KER008HVS','HVS','Paper One',7,'2021-09-22 09:15:17'),(7,7,'SPA007PRI','Printer Canon','Canon MG2577s',3,'2021-09-17 04:07:01');
 /*!40000 ALTER TABLE `stok` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +161,7 @@ CREATE TABLE `stok_keluar` (
   `jumlah` int(10) NOT NULL,
   `waktu` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +170,7 @@ CREATE TABLE `stok_keluar` (
 
 LOCK TABLES `stok_keluar` WRITE;
 /*!40000 ALTER TABLE `stok_keluar` DISABLE KEYS */;
-INSERT INTO `stok_keluar` VALUES (1,6,'Joko Sasongko','Ahmad Subardjo',3,2,'2021-09-21 16:00:52');
+INSERT INTO `stok_keluar` VALUES (2,6,'Joko Sasongko','Riska Nesa',4,5,'2021-09-22 09:15:17');
 /*!40000 ALTER TABLE `stok_keluar` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -183,4 +183,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-21 17:08:21
+-- Dump completed on 2021-09-22  9:16:46

@@ -46,3 +46,11 @@ CRITICAL - 2021-09-21 15:00:17 --> Array to string conversion
 #13 /root/Desktop/bimari/public/index.php(37): CodeIgniter\CodeIgniter->run()
 #14 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/root/Desktop/b...')
 #15 {main}
+CRITICAL - 2021-09-21 23:46:34 --> Array to string conversion
+#0 /root/Desktop/bimari/app/Controllers/StockOut.php(79): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string...', '/root/Desktop/b...', 79)
+#1 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(802): App\Controllers\StockOut->tambah()
+#2 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StockOut))
+#3 /root/Desktop/bimari/vendor/codeigniter4/framework/system/CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /root/Desktop/bimari/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /root/Desktop/bimari/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/root/Desktop/b...')
+#6 {main}

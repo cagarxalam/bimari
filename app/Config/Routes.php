@@ -33,6 +33,10 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Stok::index');
 $routes->get('/pengajuan-barang', 'StockOut::index');
+$routes->post('/pengajuan-barang/show', 'StockOut::show');
+$routes->post('/pengajuan-barang/tambah', 'StockOut::tambah');
+$routes->post('/pengajuan-barang/update', 'StockOut::update');
+$routes->post('/pengajuan-barang/hapus', 'StockOut::hapus');
 $routes->get('/login', 'Auth::index');
 $routes->get('/logout', 'Auth::logout');
 

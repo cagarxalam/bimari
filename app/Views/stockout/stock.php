@@ -74,7 +74,7 @@
                         <button class='btn btn-primary' onclick='edit({$val['id']})'>
                           <i class='fa fa-pencil-alt'></i>
                         </button>
-                        <button class='btn btn-danger' onclick='hapus({$val['id']})'>
+                        <button class='btn btn-danger' onclick='hapus({$val['id']},{$val['id_stok']})'>
                           <i class='fa fa-trash'></i>
                         </button>
                       </td>

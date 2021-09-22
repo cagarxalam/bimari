@@ -18,21 +18,28 @@ class Auth extends BaseController
     }
 
     public function sessions(){
+        $user = $_POST['user'];
+        $pass = $_POST['password'];
         $data = $this->model->ambil();
-        foreach ($data as $key) {
-            if($key['nama'] == $_POST['user'] && password_verify($_POST['password'],$key['password'])){
-                // set session
-                $session['user'] = $key['nama'];
-                $session['pass'] = $_POST['password'];
-                $session['role'] = $key['role'];
-                $this->session->set($session);
 
+        // set session
+        $session['user'] = null;
+        $session['pass'] = null;
+        $session['role'] = null;
+
+        // default value
+        $value = "Username dan Password tidak cocok";
+
+        foreach($data as $row){
+            if($row['nama'] == $user && password_verify($pass,$row['password'])){
+                $session['user'] = $user;
+                $session['pass'] = $pass;
+                $session['role'] = $row['role'];
                 $value = "cocok";
-            } else {
-                $value = "Username dan Password tidak cocok";
             }
         }
 
+        $this->session->set($session);
         echo json_encode($value);
     }
 
