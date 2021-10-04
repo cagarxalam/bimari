@@ -1,0 +1,94 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+body {
+  background-color: grey; }
+
+#pages {
+  width: 216mm;
+  height: 356mm;
+  padding: 15mm 20mm;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white !important; }
+  #pages .header {
+    display: flex;
+    border-bottom: 2px solid black;
+    padding-bottom: 30px; }
+    #pages .header #yayasan, #pages .header #bimari {
+      width: 3cm; }
+      #pages .header #yayasan img, #pages .header #bimari img {
+        width: inherit;
+        height: 100%; }
+    #pages .header #kop {
+      width: calc( 100% - 7cm);
+      margin-right: auto;
+      margin-left: auto; }
+      #pages .header #kop .kop-header {
+        text-align: center;
+        text-transform: uppercase; }
+      #pages .header #kop #nama-sekolah {
+        text-align: center;
+        text-transform: uppercase;
+        line-height: 1.2;
+        color: #e91308; }
+      #pages .header #kop h2 {
+        text-align: center;
+        text-transform: uppercase;
+        line-height: 1;
+        margin-top: 3px; }
+      #pages .header #kop #alamat {
+        text-align: center;
+        font-size: 13px;
+        line-height: 1.5;
+        margin-top: 3px; }
+  #pages #lampiran {
+    display: flex;
+    width: inherit;
+    margin-top: 20px; }
+    #pages #lampiran .nomor-surat {
+      width: 50%; }
+      #pages #lampiran .nomor-surat p {
+        line-height: 1.2; }
+        #pages #lampiran .nomor-surat p .pre {
+          display: inline-block;
+          width: 60px !important;
+          margin-right: 15px; }
+        #pages #lampiran .nomor-surat p .letter-space {
+          text-transform: uppercase;
+          letter-spacing: 2px; }
+    #pages #lampiran .tanggal-tempat {
+      width: 50%;
+      text-align: right; }
+  #pages .table-rows {
+    width: 100%;
+    margin-top: 1.5cm; }
+    #pages .table-rows .table {
+      width: inherit; }
+    #pages .table-rows .table, #pages .table-rows td, #pages .table-rows th {
+      border: 1px solid black;
+      border-collapse: collapse; }
+    #pages .table-rows td, #pages .table-rows th {
+      padding: 13px 5px;
+      box-sizing: border-box; }
+    #pages .table-rows tbody td {
+      text-align: center; }
+  #pages #signature {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 90px;
+    display: flex; }
+    #pages #signature #person1 {
+      margin-right: auto;
+      text-align: center; }
+      #pages #signature #person1 .tag {
+        margin-bottom: 70px; }
+    #pages #signature #person2 {
+      margin-left: auto;
+      text-align: center; }
+      #pages #signature #person2 .tag {
+        margin-bottom: 70px; }
+
+/*# sourceMappingURL=style.css.map */

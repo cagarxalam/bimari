@@ -8,9 +8,12 @@ use App\Models\MStockOut;
 class StockOut extends BaseController
 {
     protected $model;
+    protected $pdf;
 
     public function __construct(){
+        helper('filesystem');
         $this->model = new MStockOut();
+        $this->pdf   = new \Dompdf\Dompdf(['isRemoteEnabled' => true]);
     }
 
     public function index(){
@@ -76,6 +79,9 @@ class StockOut extends BaseController
                             <button class='btn btn-danger' onclick='hapus({$val['id']},{$val['id_stok']})'>
                                 <i class='fa fa-trash'></i>
                             </button>
+                            <a href='pengajuan-barang/print/{$val['id']}' class='btn btn-success'>
+                                <i class='fa fa-print'></i>
+                            </a>
                         </td>
                     </tr>
                 ";
@@ -125,6 +131,9 @@ class StockOut extends BaseController
                             <button class='btn btn-danger' onclick='hapus({$val['id']},{$val['id_stok']})'>
                                 <i class='fa fa-trash'></i>
                             </button>
+                            <a href='pengajuan-barang/print/{$val['id']}' class='btn btn-success'>
+                                <i class='fa fa-print'></i>
+                            </a>
                         </td>
                     </tr>
                 ";
@@ -166,6 +175,9 @@ class StockOut extends BaseController
                             <button class='btn btn-danger' onclick='hapus({$val['id']},{$val['id_stok']})'>
                                 <i class='fa fa-trash'></i>
                             </button>
+                            <a href='pengajuan-barang/print/{$val['id']}' class='btn btn-success'>
+                                <i class='fa fa-print'></i>
+                            </a>
                         </td>
                     </tr>
                 ";
@@ -173,5 +185,14 @@ class StockOut extends BaseController
         }
 
         echo json_encode($tr);
+    }
+
+    // print pdf
+    public function print($id){
+        $this->pdf->loadHtml(view('stockout/print'));
+        $this->pdf->setPaper('letter', 'portrait');
+        $this->pdf->render();
+        $this->pdf->stream();
+        // return view('stockout/print');
     }
 }

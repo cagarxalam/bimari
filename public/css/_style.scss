@@ -1,0 +1,120 @@
+*{
+	padding:0;
+	margin:0;
+}
+
+body{
+	background-color: grey;
+}
+
+#pages{
+	width: 216mm;
+	height: 356mm;
+	padding: 15mm 20mm;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white !important;
+	.header{
+		display: flex;
+		border-bottom: 2px solid black;
+		padding-bottom: 30px;
+		#yayasan, #bimari{
+			width: 3cm;
+			img{
+				width: inherit;
+				height: 100%;
+			}
+		}
+		#kop{
+			$w: 7cm;
+			width: calc( 100% - #{$w});
+			margin-right: auto;
+			margin-left: auto;
+			.kop-header{
+				text-align: center;
+				text-transform: uppercase;
+			}
+			#nama-sekolah{
+				text-align: center;
+				text-transform: uppercase;
+				line-height: 1.2;
+				color: #e91308;
+			}
+			h2{
+				text-align: center;
+				text-transform: uppercase;
+				line-height: 1;
+				margin-top: 3px;
+			}
+			#alamat{
+				text-align: center;
+				font-size: 13px;
+				line-height: 1.5;
+				margin-top: 3px;
+			}
+		}
+	}
+	#lampiran{
+		display: flex;
+		width: inherit;
+		margin-top: 20px;
+		.nomor-surat{
+			width: 50%;
+			p{
+				line-height: 1.2;
+				.pre{
+					display: inline-block;
+					width: 60px !important;
+					margin-right: 15px;
+				}
+				.letter-space{
+					text-transform: uppercase;
+					letter-spacing: 2px;
+				}
+			}
+		}
+		.tanggal-tempat{
+			width: 50%;
+			text-align: right;
+		}
+	}
+	.table-rows{
+		width: 100%;
+		margin-top: 1.5cm;
+		.table{
+			width: inherit;
+		}
+		.table, td, th{
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+		td, th{
+			padding: 13px 5px;
+			box-sizing: border-box;
+		}
+		tbody td{
+			text-align: center;
+		}
+	}
+	#signature{
+		width: 75%;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 90px;
+		display: flex;
+		#person1{
+			margin-right: auto;
+			text-align: center;
+			.tag{
+				margin-bottom: 70px;
+			}
+		}
+		#person2{
+			margin-left: auto;
+			text-align: center;
+			.tag{
+				margin-bottom: 70px;
+			}
+		}
+	}
+}

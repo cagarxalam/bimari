@@ -37,6 +37,7 @@ $routes->post('/pengajuan-barang/show', 'StockOut::show');
 $routes->post('/pengajuan-barang/tambah', 'StockOut::tambah');
 $routes->post('/pengajuan-barang/update', 'StockOut::update');
 $routes->post('/pengajuan-barang/hapus', 'StockOut::hapus');
+$routes->get('/pengajuan-barang/print/(:num)', 'StockOut::print/$1');
 $routes->get('/login', 'Auth::index');
 $routes->get('/logout', 'Auth::logout');
 

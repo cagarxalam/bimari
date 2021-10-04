@@ -77,6 +77,9 @@
                         <button class='btn btn-danger' onclick='hapus({$val['id']},{$val['id_stok']})'>
                           <i class='fa fa-trash'></i>
                         </button>
+                        <a href='pengajuan-barang/print/{$val['id']}' class='btn btn-success'>
+                          <i class='fa fa-print'></i>
+                        </a>
                       </td>
                     </tr>
                   ";
