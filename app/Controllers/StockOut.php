@@ -4,16 +4,15 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\MStockOut;
+use Dompdf\Dompdf as pdf;
+use Dompdf\Options;
 
 class StockOut extends BaseController
 {
     protected $model;
-    protected $pdf;
 
     public function __construct(){
-        helper('filesystem');
         $this->model = new MStockOut();
-        $this->pdf   = new \Dompdf\Dompdf(['isRemoteEnabled' => true]);
     }
 
     public function index(){
@@ -189,10 +188,21 @@ class StockOut extends BaseController
 
     // print pdf
     public function print($id){
-        $this->pdf->loadHtml(view('stockout/print'));
-        $this->pdf->setPaper('letter', 'portrait');
-        $this->pdf->render();
-        $this->pdf->stream();
+        // set options
+        $options = new Options();
+        $options->setChroot(FCPATH);
+        $options->setIsHtml5ParserEnabled(true);
+        $options->setIsRemoteEnabled(true);
+
+        $htmls = "<img src='/img/yayasan.png'>";
+
+        $pdf = new pdf($options);
+
+        $pdf->loadHtml($htmls);
+        $pdf->setPaper('letter', 'portrait');
+        $pdf->render();
+        $pdf->stream('tes.pdf',['Attachment' => 0]);
+
         // return view('stockout/print');
     }
 }

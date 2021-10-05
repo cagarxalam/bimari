@@ -11,7 +11,7 @@
         <div id="pages">
             <div class="header">
                 <div id="yayasan">
-                    <img src="./img/yayasan.png" alt="logo yayasan">
+                    <img src="/img/yayasan.png" alt="logo yayasan">
                 </div>
                 <div id="kop">
                     <p class="kop-header">yayasan pembina lembaga pendidikan dasar dan menengah persatuan guru republik indonesia jawa timur cabang kabupaten madiun</p>
