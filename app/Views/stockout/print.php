@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Laporan Pengajuan Barang</title>
         <link rel="stylesheet" href="/css/style.css">
+        <script src="/js/laporan.js"></script>
     </head>
     <body>
         <div id="pages">
             <div class="header">
                 <div id="yayasan">
-                    <img src="/img/yayasan.png" alt="logo yayasan">
+                    <img src="/img/yayasan.png" >
                 </div>
                 <div id="kop">
                     <p class="kop-header">yayasan pembina lembaga pendidikan dasar dan menengah persatuan guru republik indonesia jawa timur cabang kabupaten madiun</p>
@@ -71,5 +72,17 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            var element = document.querySelectorAll("#pages")[0];
+            var opt = {
+                margin:       0,
+                filename:     'oke.pdf',
+                image:        { type: 'jpeg', quality: 1 },
+                html2canvas:  { scale: 2},
+                jsPDF:        { unit: 'mm', format: 'legal', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        </script>
     </body>
 </html>

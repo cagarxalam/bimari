@@ -8,49 +8,56 @@ body {
 #pages {
   width: 216mm;
   height: 356mm;
-  padding: 15mm 20mm;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: white !important; }
+  padding: 10mm;
+  margin: auto;
+  background-color: white !important;
+  box-sizing: border-box; }
   #pages .header {
     display: flex;
     border-bottom: 2px solid black;
     padding-bottom: 30px; }
     #pages .header #yayasan, #pages .header #bimari {
-      width: 3cm; }
+      width: 2.5cm;
+      display: flex;
+      align-items: center; }
       #pages .header #yayasan img, #pages .header #bimari img {
         width: inherit;
         height: 100%; }
     #pages .header #kop {
-      width: calc( 100% - 7cm);
+      width: calc( 100% - 6cm);
       margin-right: auto;
       margin-left: auto; }
       #pages .header #kop .kop-header {
         text-align: center;
-        text-transform: uppercase; }
+        text-transform: uppercase;
+        font-size: 12px;
+        margin-bottom: 2px; }
       #pages .header #kop #nama-sekolah {
         text-align: center;
         text-transform: uppercase;
         line-height: 1.2;
-        color: #e91308; }
+        color: #e91308;
+        font-size: 25px; }
       #pages .header #kop h2 {
         text-align: center;
         text-transform: uppercase;
         line-height: 1;
-        margin-top: 3px; }
+        margin-top: 3px;
+        font-size: 22px; }
       #pages .header #kop #alamat {
         text-align: center;
-        font-size: 13px;
+        font-size: 12px;
         line-height: 1.5;
-        margin-top: 3px; }
+        margin-top: 5px; }
   #pages #lampiran {
     display: flex;
-    width: inherit;
+    width: 100%;
     margin-top: 20px; }
     #pages #lampiran .nomor-surat {
       width: 50%; }
       #pages #lampiran .nomor-surat p {
-        line-height: 1.2; }
+        line-height: 1.6;
+        font-size: 13px; }
         #pages #lampiran .nomor-surat p .pre {
           display: inline-block;
           width: 60px !important;
@@ -60,12 +67,14 @@ body {
           letter-spacing: 2px; }
     #pages #lampiran .tanggal-tempat {
       width: 50%;
-      text-align: right; }
+      text-align: right;
+      font-size: 13px; }
   #pages .table-rows {
     width: 100%;
     margin-top: 1.5cm; }
     #pages .table-rows .table {
-      width: inherit; }
+      width: inherit;
+      font-size: 13px; }
     #pages .table-rows .table, #pages .table-rows td, #pages .table-rows th {
       border: 1px solid black;
       border-collapse: collapse; }
@@ -80,6 +89,8 @@ body {
     margin-right: auto;
     margin-top: 90px;
     display: flex; }
+    #pages #signature #person1, #pages #signature #person2 {
+      font-size: 13px; }
     #pages #signature #person1 {
       margin-right: auto;
       text-align: center; }
