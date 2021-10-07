@@ -187,6 +187,7 @@ class StockOut extends BaseController
 
     // print pdf
     public function print($id){
-        return view('stockout/print');
+        $data['print'] = $this->model->printData($id);
+        return view('stockout/print',$data);
     }
 }

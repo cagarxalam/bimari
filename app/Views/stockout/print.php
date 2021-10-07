@@ -26,11 +26,11 @@
             </div>
             <div id="lampiran">
                 <div class="nomor-surat">
-                    <p><span class="pre">Nomor</span>: 143/U.1/SMK PGRI-7/X/2021</p>
+                    <p><span class="pre">Nomor</span>: <?="{$print['no']}/U.1/SMK PGRI-7/{$print['romawi']}/{$print['tahun']}"?></p>
                     <p><span class="pre">Sifat</span>: Penting</p>
                     <p><span class="pre">Perihal</span>: <span class="letter-space">bukti pengeluaran barang</span></p>
                 </div>
-                <p class="tanggal-tempat">Madiun, 01 Oktober 2021</p>
+                <p class="tanggal-tempat"><?="Madiun, {$print['hari']} {$print['bulan']} {$print['tahun']}"?></p>
             </div>
             <div class="table-rows">
                 <table class="table">
@@ -46,17 +46,10 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>KER008HVS</td>
-                            <td>Paper One</td>
-                            <td>Kertas HVS</td>
-                            <td>7 RIM</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>KER008HVS</td>
-                            <td>Paper One</td>
-                            <td>Kertas HVS</td>
-                            <td>7 RIM</td>
+                            <td><?=$print['kode']?></td>
+                            <td><?=$print['merk']?></td>
+                            <td><?=$print['barang']?></td>
+                            <td><?=$print['jumlah']?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -64,11 +57,11 @@
             <div id="signature">
                 <div id="person1">
                     <p class="tag">Yang mengeluarkan,</p>
-                    <p class="name">Joko Sasongko</p>
+                    <p class="name"><?=$print['admin']?></p>
                 </div>
                 <div id="person2">
                     <p class="tag">Pemohon,</p>
-                    <p class="name">Joko Sasongko</p>
+                    <p class="name"><?=$print['pemohon']?></p>
                 </div>
             </div>
         </div>
@@ -77,7 +70,7 @@
             var element = document.querySelectorAll("#pages")[0];
             var opt = {
                 margin:       0,
-                filename:     'oke.pdf',
+                filename:     '<?="{$print['no']}/U.1/SMK PGRI-7/{$print['romawi']}/{$print['tahun']}"?>.pdf',
                 image:        { type: 'jpeg', quality: 1 },
                 html2canvas:  { scale: 2},
                 jsPDF:        { unit: 'mm', format: 'legal', orientation: 'portrait' }

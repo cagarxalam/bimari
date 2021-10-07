@@ -91,4 +91,61 @@ class MStockOut extends Model
         $data   = $this->query($q);
         return $data;
     }
+
+    // print
+    function printData($id){
+        $query = "with keluar as ( select *, row_number() over (order by id) as no from stok_keluar ) select k.no, s.kode, s.barang, s.merk, k.admin, k.pemohon, l.lokasi, concat(k.jumlah,' ',j.satuan) as jumlah, month(k.waktu) as bulan, year(k.waktu) as tahun, k.waktu from keluar k join stok s on k.stok=s.id join kategori j on j.id=s.jenis join lokasi l on k.lokasi=l.id where k.id={$id}";
+        $data = $this->query($query)[0];
+        
+        $result['no'] = str_pad($data['no'], 3, '0', STR_PAD_LEFT);
+        $result['kode'] = $data['kode'];
+        $result['barang'] = $data['barang'];
+        $result['merk'] = $data['merk'];
+        $result['admin'] = $data['admin'];
+        $result['pemohon'] = $data['pemohon'];
+        $result['lokasi'] = $data['lokasi'];
+        $result['jumlah'] = $data['jumlah'];
+        $result['tahun'] = $data['tahun'];
+        $result['hari'] = date("d",strtotime($data['waktu']));
+        $result['bulan'] = $this->bulan($data['bulan'])['bulan'];
+        $result['romawi'] = $this->bulan($data['bulan'])['romawi'];
+
+        return $result;
+    }
+
+    function bulan($bulan){
+        $array1 = [
+            '1' => 'Januari',
+            '2' => 'Februari',
+            '3' => 'Maret',
+            '4' => 'April',
+            '5' => 'Mei',
+            '6' => 'Juni',
+            '7' => 'Juli',
+            '8' => 'Agustus',
+            '9' => 'September',
+            '10' => 'Oktober',
+            '11' => 'November',
+            '12' => 'Desember'
+        ];
+        $array2 = [
+            '1' => 'I',
+            '2' => 'II',
+            '3' => 'III',
+            '4' => 'IV',
+            '5' => 'V',
+            '6' => 'VI',
+            '7' => 'VII',
+            '8' => 'VIII',
+            '9' => 'IX',
+            '10' => 'X',
+            '11' => 'XI',
+            '12' => 'XII'
+        ];
+
+        $data['bulan']  = (isset($bulan)) ? $array1[$bulan] : null;
+        $data['romawi'] = (isset($bulan)) ? $array2[$bulan] : null;
+
+        return $data;
+    }
 }
