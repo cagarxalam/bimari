@@ -14,7 +14,8 @@
   }
 
   function edit(id){
-    $("#edit_izin option").removeAttr("selected")
+    $("#kategori2").empty()
+    $("#barang2").empty()
     $.ajax({
       url: '/pengajuan-barang/show',
       type: 'post',
@@ -23,10 +24,20 @@
       success(a){
         $("#edit_izin input[name='id']").val(a.id)
         $("#edit_izin input[name='prevStok']").val(a.stok)
-        $("#edit_izin select[name='barang'] option[value='"+a.stok+"']").attr("selected","selected")
         $("#edit_izin input[name='pemohon']").val(a.pemohon)
         $("#edit_izin select[name='lokasi'] option[value='"+a.lokasi+"']").attr("selected","selected")
         $("#edit_izin input[name='jumlah']").val(a.jumlah)
+
+        $("#kategori2").unbind("change")
+        for (let i = 0; i < a.kategori.length; i++) {
+          $("#kategori2").append(a.kategori[i])
+        }
+
+        for (let i = 0; i < a.barang.length; i++) {
+          $("#barang2").append(a.barang[i])
+        }
+
+        $("#barang2").chained("#kategori2")
 
         //clear validation
         $("#edit_izin form .is-invalid").removeClass("is-invalid")
@@ -115,28 +126,32 @@
         processData: false,
         contentType: false,
         success(a){
-          if(a == null) {
-            $("#izin").DataTable().clear().draw()
+          if(a.msg != null){
+            alert(a.msg)
           } else {
-            // destroy datatable first
-            $("#izin").DataTable().destroy()
-            // empty tbody
-            $("#tbody").empty()
+            if(a.tr == null) {
+              $("#izin").DataTable().clear().draw()
+            } else {
+              // destroy datatable first
+              $("#izin").DataTable().destroy()
+              // empty tbody
+              $("#tbody").empty()
 
-            // append tr
-            for (let i = 0; i < a.length; i++) {
-              $("#tbody").append(a[i])
+              // append tr
+              for (let i = 0; i < a.tr.length; i++) {
+                $("#tbody").append(a.tr[i])
+              }
+
+              // re-intialize DataTable
+              $("#izin").DataTable({
+                "responsive": true, 
+                "lengthChange": false, 
+                "autoWidth": false
+              })
             }
 
-            // re-intialize DataTable
-            $("#izin").DataTable({
-              "responsive": true, 
-              "lengthChange": false, 
-              "autoWidth": false
-            })
+            $("#tambah_izin").modal("hide")
           }
-
-          $("#tambah_izin").modal("hide")
         },
         error(e){
           console.log(e)
@@ -185,28 +200,32 @@
         processData: false,
         contentType: false,
         success(a){
-          if(a == null) {
-            $("#izin").DataTable().clear().draw()
+          if(a.msg != null){
+            alert(a.msg)
           } else {
-            // destroy datatable first
-            $("#izin").DataTable().destroy()
-            // empty tbody
-            $("#tbody").empty()
+            if(a.tr == null) {
+              $("#izin").DataTable().clear().draw()
+            } else {
+              // destroy datatable first
+              $("#izin").DataTable().destroy()
+              // empty tbody
+              $("#tbody").empty()
 
-            // append tr
-            for (let i = 0; i < a.length; i++) {
-              $("#tbody").append(a[i])
+              // append tr
+              for (let i = 0; i < a.tr.length; i++) {
+                $("#tbody").append(a.tr[i])
+              }
+
+              // re-intialize DataTable
+              $("#izin").DataTable({
+                "responsive": true, 
+                "lengthChange": false, 
+                "autoWidth": false
+              })
             }
 
-            // re-intialize DataTable
-            $("#izin").DataTable({
-              "responsive": true, 
-              "lengthChange": false, 
-              "autoWidth": false
-            })
+            $("#edit_izin").modal("hide")
           }
-
-          $("#edit_izin").modal("hide")
         },
         error(e){
           console.log(e)

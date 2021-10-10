@@ -23,7 +23,7 @@ class MStockOut extends Model
     }
 
     function show($id){
-        $q = "select * from stok_keluar where id = {$id}";
+        $q = "select k.*, j.id as cat, j.jenis from stok_keluar k join stok s on k.stok=s.id join kategori j on s.jenis=j.id where k.id={$id}";
         $data = $this->query($q);
         return $data[0];
     }
@@ -77,9 +77,16 @@ class MStockOut extends Model
         }
     }
 
+    // kategori
+    function kategori(){
+        $q = "select id, jenis from kategori";
+        $data = $this->query($q);
+        return $data;
+    }
+
     // barang
     function barang(){
-        $q      = "select id, concat(kode,' - ',barang) as barang from stok";
+        $q      = "select id, concat(kode,' - ',barang) as barang, jenis from stok";
         $data   = $this->query($q);
         
         return $data;

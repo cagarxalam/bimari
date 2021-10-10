@@ -10,13 +10,27 @@
       <form action="javascript:void(0)" method="post">
         <div class="modal-body">
           <div class="form-group">
+            <label>Kategori</label>
+            <select id="kategori1" class="form-control">
+              <option value="--">Pilih Kategori</option>
+              <?php
+                foreach($lists as $rows){
+                  $opt = "
+                    <option value='cat-{$rows['id']}'>{$rows['jenis']}</option>
+                  ";
+                  echo $opt;
+                }
+              ?>
+            </select>
+          </div>
+          <div class="form-group">
             <label>Barang</label>
-            <select name="barang" class="form-control">
+            <select id="barang1" name="barang" class="form-control">
               <option value="">Pilih Barang</option>
               <?php
                 foreach ($barang as $key) {
                   $opt = "
-                    <option value='{$key['id']}'>{$key['barang']}</option>
+                    <option value='{$key['id']}' data-chained='cat-{$key['jenis']}'>{$key['barang']}</option>
                   ";
                   echo $opt;
                 }
@@ -73,17 +87,15 @@
         <input type="hidden" name="prevStok">
         <div class="modal-body">
           <div class="form-group">
+            <label>Kategori</label>
+            <select id="kategori2" class="form-control">
+              <option value="--">Pilih Kategori</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label>Barang</label>
-            <select name="barang" class="form-control">
+            <select name="barang" class="form-control" id="barang2">
               <option value="">Pilih Barang</option>
-              <?php
-                foreach ($barang as $key) {
-                  $opt = "
-                    <option value='{$key['id']}'>{$key['barang']}</option>
-                  ";
-                  echo $opt;
-                }
-              ?>
             </select>
           </div>
           <div class="form-group">

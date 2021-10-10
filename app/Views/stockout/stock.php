@@ -108,5 +108,12 @@
   <script src="/js/responsive.bootstrap4.min.js"></script>
   <!-- jquery validation -->
   <script src="/js/jquery.validate.min.js"></script>
+  <!-- jquery chained -->
+  <script src="/js/jquery.chained.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#barang1").chained("#kategori1")
+    })
+  </script>
   <?=view('stockout/script')?>
 <?=$this->endSection()?>

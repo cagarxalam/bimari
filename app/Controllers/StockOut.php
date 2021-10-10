@@ -23,6 +23,7 @@ class StockOut extends BaseController
             // barang dan lokasi
             $data['barang']     = $this->model->barang();
             $data['lok']        = $this->model->lokasi();
+            $data['lists']   = $this->model->kategori();
 
             //data
             $data['rows']       = $this->model->ambil();
@@ -36,56 +37,89 @@ class StockOut extends BaseController
         $id     = $_POST['id'];
         $data   = $this->model->show($id);
 
+        $kategori = $this->model->kategori();
+        $barang   = $this->model->barang();
+
+        $opt1[0] = '<option value="--">Pilih Kategori</option>';
+        $opt2[0] = '<option value="">Pilih Barang</option>';
+        foreach($kategori as $num => $rows){
+            $selected = ($data['cat'] == $rows['id']) ? "selected='selected'" : null;
+            $no = $num+1;
+            $opt1[$no] = "<option value='cat-{$rows['id']}' {$selected}>{$rows['jenis']}</option>";
+        }
+
+        foreach($barang as $num => $rows){
+            $selected = ($data['stok'] == $rows['id']) ? "selected='selected'" : null;
+            $no = $num + 1;
+            $opt2[$no] = "<option value='{$rows['id']}' data-chained='cat-{$rows['jenis']}' {$selected}>{$rows['barang']}</option>";
+        }
+
+        // retrieve to json;
+        $data['kategori'] = $opt1;
+        $data['barang']   = $opt2;
+
         echo json_encode($data);
     }
 
     public function tambah(){
         $stok = $_POST['barang'];
 
-        $data['stok'] = $stok;
-        $data['admin'] = $_POST['admin'];
-        $data['pemohon'] = $_POST['pemohon'];
-        $data['lokasi'] = $_POST['lokasi'];
-        $data['jumlah'] = $_POST['jumlah'];
-        $data['waktu'] = date("Y-m-d H:i:s");
+        // get jumlah stok
+        $jumlah = $this->model->query("select jumlah from stok where id = {$stok}")[0]['jumlah'];
+        $sisa   = $jumlah - $_POST['jumlah'];
 
-        // tambah data
-        $this->model->tambah($data,$stok);
+        if($sisa >= 0){
+            $data['stok'] = $stok;
+            $data['admin'] = $_POST['admin'];
+            $data['pemohon'] = $_POST['pemohon'];
+            $data['lokasi'] = $_POST['lokasi'];
+            $data['jumlah'] = $_POST['jumlah'];
+            $data['waktu'] = date("Y-m-d H:i:s");
 
-        // generate rows
-        $rows = $this->model->ambil();
-        $tr   = null;
+            // tambah data
+            $this->model->tambah($data,$stok);
 
-        if(count($rows) >= 1){
-            foreach ($rows as $key => $val) {
-                $no = $key + 1;
-                $waktu = date("d-m-Y H:i:s",strtotime($val['waktu']));
-                $tr[$key] = "
-                    <tr>
-                        <td>{$no}</td>
-                        <td>{$val['kode']}</td>
-                        <td>{$val['barang']}</td>
-                        <td>{$val['merk']}</td>
-                        <td>{$val['pemohon']}</td>
-                        <td>{$val['lokasi']}</td>
-                        <td>{$val['jumlah']}</td>
-                        <td>{$waktu}</td>
-                        <td>
-                            <button class='btn btn-primary' onclick='edit({$val['id']})'>
-                                <i class='fa fa-pencil-alt'></i>
-                            </button>
-                            <button class='btn btn-danger' onclick='hapus({$val['id']},{$val['id_stok']})'>
-                                <i class='fa fa-trash'></i>
-                            </button>
-                            <a href='pengajuan-barang/print/{$val['id']}' class='btn btn-success'>
-                                <i class='fa fa-print'></i>
-                            </a>
-                        </td>
-                    </tr>
-                ";
+            // generate rows
+            $rows = $this->model->ambil();
+            $tr   = null;
+
+            if(count($rows) >= 1){
+                foreach ($rows as $key => $val) {
+                    $no = $key + 1;
+                    $waktu = date("d-m-Y H:i:s",strtotime($val['waktu']));
+                    $tr[$key] = "
+                        <tr>
+                            <td>{$no}</td>
+                            <td>{$val['kode']}</td>
+                            <td>{$val['barang']}</td>
+                            <td>{$val['merk']}</td>
+                            <td>{$val['pemohon']}</td>
+                            <td>{$val['lokasi']}</td>
+                            <td>{$val['jumlah']}</td>
+                            <td>{$waktu}</td>
+                            <td>
+                                <button class='btn btn-primary' onclick='edit({$val['id']})'>
+                                    <i class='fa fa-pencil-alt'></i>
+                                </button>
+                                <button class='btn btn-danger' onclick='hapus({$val['id']},{$val['id_stok']})'>
+                                    <i class='fa fa-trash'></i>
+                                </button>
+                                <a href='pengajuan-barang/print/{$val['id']}' class='btn btn-success'>
+                                    <i class='fa fa-print'></i>
+                                </a>
+                            </td>
+                        </tr>
+                    ";
+                }
             }
+
+            // message
+            $msg = null;
+        } else {
+            $msg = "tidak bisa mengajukan barang lebih dari {$jumlah}";
+            $tr  = null;
         }
-        echo json_encode($tr);
+        echo json_encode(['tr' => $tr, 'msg' => $msg]);
     }
 
     public function update(){
@@ -94,51 +128,68 @@ class StockOut extends BaseController
         $prevStok   = $_POST['prevStok'];
         $newStok    = $_POST['barang'];
 
-        // data update
-        $data['stok']       = $newStok;
-        $data['pemohon']    = $_POST['pemohon'];
-        $data['lokasi']     = $_POST['lokasi'];
-        $data['jumlah']     = $_POST['jumlah'];
-        $data['waktu']      = date("Y-m-d H:i:s");
+        // get jumlah stok
+        if($prevStok == $newStok){
+            $query  = "select (s.jumlah + k.jumlah) as jumlah from stok s join stok_keluar k on s.id=k.stok where k.id = {$id}"; 
+            $jumlah = $this->model->query($query)[0]['jumlah'];
+        } else {
+            $query  = "select jumlah from stok where id = {$newStok}";
+            $jumlah = $this->model->query($query)[0]['jumlah'];
+        }
+        $sisa = $jumlah - $_POST['jumlah'];
 
-        // update
-        $this->model->edit($id,$prevStok,$newStok,$data);
+        if($sisa >= 0){
+            // data update
+            $data['stok']       = $newStok;
+            $data['pemohon']    = $_POST['pemohon'];
+            $data['lokasi']     = $_POST['lokasi'];
+            $data['jumlah']     = $_POST['jumlah'];
+            $data['waktu']      = date("Y-m-d H:i:s");
 
-        // generate rows
-        $rows = $this->model->ambil();
-        $tr   = null;
+            // update
+            $this->model->edit($id,$prevStok,$newStok,$data);
 
-        if(count($rows) >= 1){
-            foreach ($rows as $key => $val) {
-                $no = $key + 1;
-                $waktu = date("d-m-Y H:i:s",strtotime($val['waktu']));
-                $tr[$key] = "
-                    <tr>
-                        <td>{$no}</td>
-                        <td>{$val['kode']}</td>
-                        <td>{$val['barang']}</td>
-                        <td>{$val['merk']}</td>
-                        <td>{$val['pemohon']}</td>
-                        <td>{$val['lokasi']}</td>
-                        <td>{$val['jumlah']}</td>
-                        <td>{$waktu}</td>
-                        <td>
-                            <button class='btn btn-primary' onclick='edit({$val['id']})'>
-                                <i class='fa fa-pencil-alt'></i>
-                            </button>
-                            <button class='btn btn-danger' onclick='hapus({$val['id']},{$val['id_stok']})'>
-                                <i class='fa fa-trash'></i>
-                            </button>
-                            <a href='pengajuan-barang/print/{$val['id']}' class='btn btn-success'>
-                                <i class='fa fa-print'></i>
-                            </a>
-                        </td>
-                    </tr>
-                ";
+            // generate rows
+            $rows = $this->model->ambil();
+            $tr   = null;
+
+            if(count($rows) >= 1){
+                foreach ($rows as $key => $val) {
+                    $no = $key + 1;
+                    $waktu = date("d-m-Y H:i:s",strtotime($val['waktu']));
+                    $tr[$key] = "
+                        <tr>
+                            <td>{$no}</td>
+                            <td>{$val['kode']}</td>
+                            <td>{$val['barang']}</td>
+                            <td>{$val['merk']}</td>
+                            <td>{$val['pemohon']}</td>
+                            <td>{$val['lokasi']}</td>
+                            <td>{$val['jumlah']}</td>
+                            <td>{$waktu}</td>
+                            <td>
+                                <button class='btn btn-primary' onclick='edit({$val['id']})'>
+                                    <i class='fa fa-pencil-alt'></i>
+                                </button>
+                                <button class='btn btn-danger' onclick='hapus({$val['id']},{$val['id_stok']})'>
+                                    <i class='fa fa-trash'></i>
+                                </button>
+                                <a href='pengajuan-barang/print/{$val['id']}' class='btn btn-success'>
+                                    <i class='fa fa-print'></i>
+                                </a>
+                            </td>
+                        </tr>
+                    ";
+                }
             }
+
+            $msg = null;
+        } else {
+            $msg = "tidak bisa mengajukan barang lebih dari {$jumlah}";
+            $tr  = null;
         }
 
-        echo json_encode($tr);
+        echo json_encode(['tr' => $tr, 'msg' => $msg]);
     }
 
     public function hapus(){
