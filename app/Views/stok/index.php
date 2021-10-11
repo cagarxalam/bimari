@@ -84,6 +84,11 @@
           </table>
         </div>
         <!-- /.card-body -->
+        <div class="card-footer">
+          <a href="/print-laporan-stok" class="btn btn-primary">
+            <i class="fa fa-print"></i> Print Laporan Barang
+          </a>
+        </div>
       </div>
       <!-- /.card -->
 

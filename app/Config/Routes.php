@@ -32,6 +32,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Stok::index');
+$routes->get('/print-laporan-stok', 'Stok::print_stok_barang');
 $routes->get('/pengajuan-barang', 'StockOut::index');
 $routes->post('/pengajuan-barang/show', 'StockOut::show');
 $routes->post('/pengajuan-barang/tambah', 'StockOut::tambah');

@@ -16,8 +16,9 @@ class MStockOut extends Model
         return $this->db->query($query)->getResultArray();
     }
 
-    function ambil(){
-        $q = "select sk.id, s.id as id_stok, s.kode, s.barang, s.merk, sk.pemohon, sk.admin, l.lokasi, concat(sk.jumlah,' ',k.satuan) as jumlah, sk.waktu from stok_keluar sk join stok s on sk.stok = s.id join lokasi l on sk.lokasi = l.id join kategori k on s.jenis = k.id order by sk.waktu desc";
+    function ambil($bulan,$tahun){
+        // $q = "select sk.id, s.id as id_stok, s.kode, s.barang, s.merk, sk.pemohon, sk.admin, l.lokasi, concat(sk.jumlah,' ',k.satuan) as jumlah, sk.waktu from stok_keluar sk join stok s on sk.stok = s.id join lokasi l on sk.lokasi = l.id join kategori k on s.jenis = k.id order by sk.waktu desc";
+        $q = "select sk.id, s.id as id_stok, s.kode, s.barang, s.merk, sk.pemohon, sk.admin, l.lokasi, concat(sk.jumlah,' ',k.satuan) as jumlah, sk.waktu from stok_keluar sk join stok s on sk.stok = s.id join lokasi l on sk.lokasi = l.id join kategori k on s.jenis = k.id where month(sk.waktu) = {$bulan} and year(sk.waktu) = {$tahun} order by sk.waktu asc;";
         $data = $this->query($q);
         return $data;
     }

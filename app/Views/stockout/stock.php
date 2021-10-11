@@ -119,7 +119,11 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          <a href="javascript:void(0)" class="btn btn-primary" id="buttonPrint">
+          <?php 
+            $display = (count($rows) == 0) ? "style='display:none;'" : null;
+            $href    = (count($rows) != 0) ? "/pengajuan-barang/laporan/{$these->bulan}/{$these->tahun}": "javascript:void(0)";
+          ?>
+          <a href="<?=$href?>" class="btn btn-primary" id="buttonPrint" <?=$display?>>
             <i class="fa fa-print"></i> Print Laporan Barang Keluar
           </a>
         </div>

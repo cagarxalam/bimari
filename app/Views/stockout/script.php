@@ -244,7 +244,19 @@
       processData: false,
       contentType: false,
       success(a){
-        $("#buttonPrint").attr("href","/pengajuan-barang/laporan/"+a.bulan+"/"+a.tahun)
+        $("#tbody").empty()
+
+        if(a.val != null){
+          $("#buttonPrint").show()
+          $("#buttonPrint").attr("href","/pengajuan-barang/laporan/"+a.bulan+"/"+a.tahun)
+          for (let x = 0; x < a.val.length; x++) {
+            $("#tbody").append(a.val[x])
+          }
+        } else {
+          $("#buttonPrint").hide()
+          $("#buttonPrint").attr("href","javascript:void(0)")
+          $("#izin").DataTable().clear().draw()
+        }
       },
       error(e){
         console.log(e)

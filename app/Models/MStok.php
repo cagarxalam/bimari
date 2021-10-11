@@ -45,4 +45,23 @@ class MStok extends Model
         $data = 'select id, jenis from kategori';
         return $this->query($data);
     }
+
+    // bulan
+    function bulan($month){
+        $val['1']  = 'Januari';
+        $val['2']  = 'Februari';
+        $val['3']  = 'Maret';
+        $val['4']  = 'April';
+        $val['5']  = 'Mei';
+        $val['6']  = 'Juni';
+        $val['7']  = 'Juli';
+        $val['8']  = 'Agustus';
+        $val['9']  = 'September';
+        $val['10'] = 'Oktober';
+        $val['11'] = 'November';
+        $val['12'] = 'Desember';
+
+        $result = (isset($val[$month])) ? $val[$month] : null;
+        return $result;
+    }
 }

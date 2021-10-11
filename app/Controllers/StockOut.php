@@ -9,9 +9,13 @@ use Dompdf\Dompdf;
 class StockOut extends BaseController
 {
     protected $model;
+    public $bulan;
+    public $tahun;
 
     public function __construct(){
         $this->model = new MStockOut();
+        $this->bulan = date("m");
+        $this->tahun = date("Y");
     }
 
     public function index(){
@@ -27,9 +31,10 @@ class StockOut extends BaseController
 
             // data bulan
             $data['bulan']      = $this->model;
+            $data['these']       = $this;
 
             //data
-            $data['rows']       = $this->model->ambil();
+            $data['rows']       = $this->model->ambil($this->bulan,$this->tahun);
             return view('stockout/stock',$data);
         } else {
             return redirect()->to(base_url("login"));
@@ -83,7 +88,7 @@ class StockOut extends BaseController
             $this->model->tambah($data,$stok);
 
             // generate rows
-            $rows = $this->model->ambil();
+            $rows = $this->model->ambil($this->bulan,$this->tahun);
             $tr   = null;
 
             if(count($rows) >= 1){
@@ -153,7 +158,7 @@ class StockOut extends BaseController
             $this->model->edit($id,$prevStok,$newStok,$data);
 
             // generate rows
-            $rows = $this->model->ambil();
+            $rows = $this->model->ambil($this->bulan,$this->tahun);
             $tr   = null;
 
             if(count($rows) >= 1){
@@ -203,7 +208,7 @@ class StockOut extends BaseController
         $this->model->hapus($id_ambil,$id_stok);
 
         // generate rows
-        $rows = $this->model->ambil();
+        $rows = $this->model->ambil($this->bulan,$this->tahun);
         $tr   = null;
 
         if(count($rows) >= 1){
@@ -247,10 +252,43 @@ class StockOut extends BaseController
 
     // print laporan barang keluar
     public function generate(){
-        $bulan = $_POST['bulan'];
-        $tahun = $_POST['tahun'];
+        $bulan  = $_POST['bulan'];
+        $tahun  = $_POST['tahun'];
+        $result = $this->model->ambil($bulan,$tahun);
 
-        echo json_encode(['bulan' => $bulan, 'tahun' => $tahun]);
+        if(count($result) == 0){
+            $tr     = null;
+        } else {
+            foreach($result as $num => $key){
+                $no = $num + 1;
+                $waktu = date("d-m-Y H:i:s",strtotime($key['waktu']));
+                $tr[$num] = "
+                <tr>
+                    <td>{$no}</td>
+                    <td>{$key['kode']}</td>
+                    <td>{$key['barang']}</td>
+                    <td>{$key['merk']}</td>
+                    <td>{$key['pemohon']}</td>
+                    <td>{$key['lokasi']}</td>
+                    <td>{$key['jumlah']}</td>
+                    <td>{$waktu}</td>
+                    <td>
+                    <button class='btn btn-primary' onclick='edit({$key['id']})'>
+                        <i class='fa fa-pencil-alt'></i>
+                    </button>
+                    <button class='btn btn-danger' onclick='hapus({$key['id']},{$key['id_stok']})'>
+                        <i class='fa fa-trash'></i>
+                    </button>
+                    <a href='pengajuan-barang/print/{$key['id']}' class='btn btn-success'>
+                        <i class='fa fa-print'></i>
+                    </a>
+                    </td>
+                </tr>
+                ";
+            }
+        }
+
+        echo json_encode(['bulan' => $bulan, 'tahun' => $tahun, 'val' => $tr]);
     }
 
     public function laporan_keluar($bulan,$tahun){

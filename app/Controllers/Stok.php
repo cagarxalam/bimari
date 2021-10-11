@@ -8,9 +8,15 @@ use App\Models\MStok;
 class Stok extends BaseController
 {
     protected $model;
+    public $bulan;
+    public $tahun;
+    public $tanggal;
 
     function __construct(){
         $this->model = new MStok();
+        $this->tanggal = date('d');
+        $this->bulan   = $this->model->bulan(date("m"));
+        $this->tahun   = date('Y');
     }
 
     public function index(){
@@ -177,5 +183,11 @@ class Stok extends BaseController
         }
 
         echo json_encode($tr);
+    }
+
+    // print stok barang
+    public function print_stok_barang(){
+        $data = $this->model->ambil();
+        echo $this->bulan;
     }
 }
