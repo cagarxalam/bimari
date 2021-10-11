@@ -23,7 +23,10 @@ class StockOut extends BaseController
             // barang dan lokasi
             $data['barang']     = $this->model->barang();
             $data['lok']        = $this->model->lokasi();
-            $data['lists']   = $this->model->kategori();
+            $data['lists']      = $this->model->kategori();
+
+            // data bulan
+            $data['bulan']      = $this->model;
 
             //data
             $data['rows']       = $this->model->ambil();
@@ -240,5 +243,20 @@ class StockOut extends BaseController
     public function print($id){
         $data['print'] = $this->model->printData($id);
         return view('stockout/print',$data);
+    }
+
+    // print laporan barang keluar
+    public function generate(){
+        $bulan = $_POST['bulan'];
+        $tahun = $_POST['tahun'];
+
+        echo json_encode(['bulan' => $bulan, 'tahun' => $tahun]);
+    }
+
+    public function laporan_keluar($bulan,$tahun){
+        $data['value'] = $this->model->laporan_generate($bulan,$tahun);
+        $data['bulan'] = $this->model->bulan($bulan)['bulan'];
+        $data['tahun'] = $tahun;
+        return view('stockout/laporan',$data);
     }
 }

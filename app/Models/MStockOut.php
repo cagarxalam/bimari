@@ -155,4 +155,10 @@ class MStockOut extends Model
 
         return $data;
     }
+
+    function laporan_generate($bulan,$tahun){
+        $query = "select sk.id, s.kode, s.barang, s.merk, sk.pemohon, sk.admin, l.lokasi, concat(sk.jumlah,' ',k.satuan) as jumlah from stok_keluar sk join stok s on sk.stok = s.id join lokasi l on sk.lokasi = l.id join kategori k on s.jenis = k.id where month(sk.waktu) = {$bulan} and year(sk.waktu) = {$tahun} order by sk.waktu asc";
+        $data  = $this->query($query);
+        return $data;
+    }
 }

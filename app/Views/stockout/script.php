@@ -233,4 +233,22 @@
       })
     }
   })
+
+  $("#filter").submit(function(){
+    var form = new FormData(this)
+    $.ajax({
+      url: "/StockOut/generate",
+      type: "post",
+      dataType: "json",
+      data: form,
+      processData: false,
+      contentType: false,
+      success(a){
+        $("#buttonPrint").attr("href","/pengajuan-barang/laporan/"+a.bulan+"/"+a.tahun)
+      },
+      error(e){
+        console.log(e)
+      }
+    })
+  })
 </script>

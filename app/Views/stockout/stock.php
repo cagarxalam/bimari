@@ -32,7 +32,35 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Title</h3>
+          <!-- <h3 class="card-title">Title</h3> -->
+          <form action="javascript:void(0)" method="post" id="filter">
+            <div class="form-group row">
+              <div class="col-3">
+                <select name="bulan" id="bulan" class="form-control">
+                  <?php
+                    for ($x=1; $x <= 12; $x++) { 
+                      $opt = "<option value='{$x}'>{$bulan->bulan($x)['bulan']}</option>";
+                      echo $opt;
+                    }
+                  ?>
+                </select>
+              </div>
+              <div class="col-3">
+                <select name="tahun" id="tahun" class="form-control">
+                  <?php
+                    for ($x=1; $x <= 10; $x++) { 
+                      $tahun = $x + 2020;
+                      $opt = "<option value='{$tahun}'>{$tahun}</option>";
+                      echo $opt;
+                    }
+                  ?>
+                </select>
+              </div>
+              <div class="col-3">
+                <button type="submit" class="btn btn-primary">Filter</button>
+              </div>
+            </div>
+          </form>
 
           <div class="card-tools">
             <button type="button" class="btn btn-primary" onclick="tambah()">
@@ -90,6 +118,11 @@
           </table>
         </div>
         <!-- /.card-body -->
+        <div class="card-footer">
+          <a href="javascript:void(0)" class="btn btn-primary" id="buttonPrint">
+            <i class="fa fa-print"></i> Print Laporan Barang Keluar
+          </a>
+        </div>
       </div>
       <!-- /.card -->
 
