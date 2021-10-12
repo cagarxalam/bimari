@@ -1,0 +1,50 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+body {
+  background-color: black; }
+
+#laporan {
+  width: 33cm;
+  height: 21.5cm;
+  margin: 0 auto;
+  background-color: white;
+  padding: 2cm;
+  box-sizing: border-box;
+  font-family: sans-serif; }
+  #laporan tbody, #laporan td, #laporan tfoot, #laporan th, #laporan thead, #laporan tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0; }
+  #laporan .header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 40px; }
+  #laporan table {
+    caption-side: bottom;
+    border-collapse: collapse;
+    text-align: center; }
+  #laporan th {
+    text-align: inherit; }
+  #laporan .table {
+    color: #212529;
+    vertical-align: top;
+    border-color: #dee2e6;
+    width: 100%;
+    font-size: 16px; }
+  #laporan .table > thead {
+    vertical-align: bottom; }
+    #laporan .table > thead tr {
+      border-bottom: 2px solid black; }
+  #laporan .table > tbody {
+    vertical-align: inherit; }
+  #laporan .table > :not(caption) > * > * {
+    padding: .75rem .5rem;
+    background-color: transparent;
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px transparent; }
+  #laporan .table-striped > tbody > tr:nth-of-type(2n+1) > * {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #212529; }

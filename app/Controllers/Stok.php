@@ -187,7 +187,15 @@ class Stok extends BaseController
 
     // print stok barang
     public function print_stok_barang(){
-        $data = $this->model->ambil();
-        echo $this->bulan;
+        if($this->session->user){
+            $data['stok']       = $this->model->ambil();
+            $data['tanggal']    = date("d");
+            $data['bulan']      = $this->model->bulan(date("m"));
+            $data['tahun']      = date("Y");
+
+            return view('stok/print',$data);
+        } else {
+            return redirect()->to(base_url("login"));
+        }
     }
 }
