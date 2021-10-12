@@ -17,7 +17,6 @@ class MStockOut extends Model
     }
 
     function ambil($bulan,$tahun){
-        // $q = "select sk.id, s.id as id_stok, s.kode, s.barang, s.merk, sk.pemohon, sk.admin, l.lokasi, concat(sk.jumlah,' ',k.satuan) as jumlah, sk.waktu from stok_keluar sk join stok s on sk.stok = s.id join lokasi l on sk.lokasi = l.id join kategori k on s.jenis = k.id order by sk.waktu desc";
         $q = "select sk.id, s.id as id_stok, s.kode, s.barang, s.merk, sk.pemohon, sk.admin, l.lokasi, concat(sk.jumlah,' ',k.satuan) as jumlah, sk.waktu from stok_keluar sk join stok s on sk.stok = s.id join lokasi l on sk.lokasi = l.id join kategori k on s.jenis = k.id where month(sk.waktu) = {$bulan} and year(sk.waktu) = {$tahun} order by sk.waktu asc;";
         $data = $this->query($q);
         return $data;
@@ -29,9 +28,9 @@ class MStockOut extends Model
         return $data[0];
     }
 
-    function tambah($data,$stok){
-        $q = "update stok set time = (select sk.waktu from stok s join stok_keluar sk on s.id = sk.stok where s.id = {$stok} order by sk.id desc limit 1), jumlah = (select (s.jumlah - sk.jumlah) as jumlah from stok s join stok_keluar sk on s.id = sk.stok where s.id = {$stok} order by sk.id desc limit 1) where id = {$stok}";
-        
+    function tambah($data,$stok,$sisa){
+        $q = "update stok set time = '{$data['waktu']}', jumlah = {$sisa} where id = {$stok}";
+
         $this->db->transBegin();
         $this->db->table('stok_keluar')->insert($data);
         $this->db->query($q);
@@ -43,11 +42,11 @@ class MStockOut extends Model
         }
     }
 
-    function edit($id_ambil,$prevStok,$newStok,$data){
+    function edit($id_ambil,$prevStok,$newStok,$data,$reset,$sisa){
         // reset jumlah
-        $reset  = "update stok set jumlah = (select (s.jumlah + sk.jumlah) from stok s join stok_keluar sk on s.id = sk.stok where s.id = {$prevStok} and sk.id = {$id_ambil}) where id = {$prevStok}";
+        $reset  = "update stok set jumlah = {$reset} where id = {$prevStok}";
         // update stok
-        $stok   = "update stok set time = (select sk.waktu from stok s join stok_keluar sk on s.id = sk.stok where s.id = {$newStok} and sk.id = {$id_ambil}) ,jumlah = (select (s.jumlah - sk.jumlah) from stok s join stok_keluar sk on s.id = sk.stok where s.id = {$newStok} and sk.id = {$id_ambil}) where id = {$newStok}";
+        $stok   = "update stok set time = '{$data['waktu']}' ,jumlah = {$sisa} where id = {$newStok}";
 
         // query
         $this->db->transBegin();
@@ -62,10 +61,10 @@ class MStockOut extends Model
         }
     }
 
-    function hapus($id,$id_stok){
+    function hapus($id,$id_stok,$resets){
         // reset stok
         $time   = date("Y-m-d H:i:s");
-        $reset  = "update stok set time = '{$time}', jumlah = (select (s.jumlah + sk.jumlah) from stok s join stok_keluar sk on s.id = sk.stok where s.id = {$id_stok} and sk.id = {$id}) where id = {$id_stok}";
+        $reset  = "update stok set time = '{$time}', jumlah = {$resets} where id = {$id_stok}";
     
         $this->db->transBegin();
         $this->db->query($reset);

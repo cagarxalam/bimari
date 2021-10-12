@@ -85,7 +85,7 @@ class StockOut extends BaseController
             $data['waktu'] = date("Y-m-d H:i:s");
 
             // tambah data
-            $this->model->tambah($data,$stok);
+            $this->model->tambah($data,$stok,$sisa);
 
             // generate rows
             $rows = $this->model->ambil($this->bulan,$this->tahun);
@@ -144,7 +144,8 @@ class StockOut extends BaseController
             $query  = "select jumlah from stok where id = {$newStok}";
             $jumlah = $this->model->query($query)[0]['jumlah'];
         }
-        $sisa = $jumlah - $_POST['jumlah'];
+        $sisa  = $jumlah - $_POST['jumlah'];
+        $reset = $this->model->query("select (s.jumlah + k.jumlah) as jumlah from stok s join stok_keluar k on s.id=k.stok where k.id = {$id}")[0]['jumlah']; 
 
         if($sisa >= 0){
             // data update
@@ -155,7 +156,7 @@ class StockOut extends BaseController
             $data['waktu']      = date("Y-m-d H:i:s");
 
             // update
-            $this->model->edit($id,$prevStok,$newStok,$data);
+            $this->model->edit($id,$prevStok,$newStok,$data,$reset,$sisa);
 
             // generate rows
             $rows = $this->model->ambil($this->bulan,$this->tahun);
@@ -204,8 +205,10 @@ class StockOut extends BaseController
         $id_ambil = $_POST['id'];
         $id_stok  = $_POST['id_stok'];
 
+        $reset = $this->model->query("select (s.jumlah + k.jumlah) as jumlah from stok s join stok_keluar k on s.id=k.stok where k.id = {$id_ambil}")[0]['jumlah']; 
+
         // hapus data
-        $this->model->hapus($id_ambil,$id_stok);
+        $this->model->hapus($id_ambil,$id_stok,$reset);
 
         // generate rows
         $rows = $this->model->ambil($this->bulan,$this->tahun);
