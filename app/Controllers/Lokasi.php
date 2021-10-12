@@ -15,7 +15,7 @@ class Lokasi extends BaseController
 
     public function index(){
         if($this->session->user){
-            $data['title']  = "SIM Inventaris | Lokasi Aset";
+            $data['title']  = "Lokasi | Sistem Informasi Manajemen Aset";
             $data['lokasi'] = "active";
             $data['master'] = "active";
 

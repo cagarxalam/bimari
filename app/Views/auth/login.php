@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SIM Inventaris</title>
+    <title>Sistem Informasi Manajemen Aset</title>
     <link rel="shortcut icon" href="/img/logo.ico" type="image/x-icon">
 
     <!-- Google Font: Source Sans Pro -->
@@ -19,6 +19,7 @@
       <div class="card card-outline card-primary">
         <div class="card-header text-center">
           <img src="/img/logo.png" alt="logo" width="90">
+          <h3>Sistem Informasi Manajemen Aset</h3>
         </div>
         <div class="card-body">
           <p class="login-box-msg" id="msg"></p>

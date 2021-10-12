@@ -20,7 +20,7 @@ class StockOut extends BaseController
 
     public function index(){
         if($this->session->user){
-            $data['title']      = "SIM Inventaris | Laporan Pengajuan Barang";
+            $data['title']      = "Laporan Pengajuan Barang | Sistem Informasi Manajemen Aset";
             $data['stockout']   = "active";
             $data['admin']      = $this->session->user;
 

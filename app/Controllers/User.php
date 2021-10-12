@@ -15,7 +15,7 @@ class User extends BaseController
 
     public function index(){
         if($this->session->user && $this->session->role == 1){
-            $data['title']  = "SIM Inventaris | Master User";
+            $data['title']  = "Master User | Sistem Informasi Manajemen Aset";
             $data['user']   = "active";
             $data['master'] = "active";
 

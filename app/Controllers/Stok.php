@@ -22,7 +22,7 @@ class Stok extends BaseController
     public function index(){
         if($this->session->user){
             $data['stok']   = 'active';
-            $data['title']  = 'SIM Inventaris | Laporan Stok Inventaris';
+            $data['title']  = 'Laporan Stok | Sistem Informasi Manajemen Aset';
 
             // select
             $data['select'] = $this->model->kategori();

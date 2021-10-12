@@ -17,7 +17,7 @@ class Kategori extends BaseController
         if($this->session->user){
             $data['kategori']   = 'active';
             $data['master']     = 'active';
-            $data['title']      = 'SIM Inventaris | Data Master';
+            $data['title']      = 'Kategori | Sistem Informasi Manajemen Aset';
 
             // data kategori
             $data['value']      = $this->model->ambil();
