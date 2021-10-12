@@ -19,7 +19,7 @@
       <div class="card card-outline card-primary">
         <div class="card-header text-center">
           <img src="/img/logo.png" alt="logo" width="90">
-          <h3>Sistem Informasi Manajemen Aset</h3>
+          <h3>Sistem Informasi Manajemen Stok</h3>
         </div>
         <div class="card-body">
           <p class="login-box-msg" id="msg"></p>
